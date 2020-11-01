@@ -1,6 +1,6 @@
 import { optmizedHillClimbing } from '../hill_climbing.js';
 import { sphere } from '../../benchmark/sphere.js';
-import { boundedUniformConvolution } from '../../utils/functional.js';
+import { boundedUniformConvolution } from '../../tweak/tweaks.js';
 import {
   readFileAsArray,
   writeObjToFile,
@@ -8,6 +8,7 @@ import {
   getMean,
   getStdDeviation,
 } from '../../utils/utils.js';
+import { cartesian } from '../../utils/functional.js';
 
 function getBestParams() {
   let auxQual = new Array(10);
@@ -103,3 +104,64 @@ const os = readFileAsArray('src/activity_1/tests/optimum.txt', '\n');
 
 // getBestParams();
 // getBestSolution();
+
+const ranges = [
+  {
+    label: 'p',
+    range: () => {
+      let arr = [];
+      for (let i = 1; i <= 10; i++) arr.push(i / 10);
+      return arr;
+    },
+  },
+  {
+    label: 'r',
+    range: () => {
+      let arr = [];
+      for (let i = 1; i <= 20; i++) arr.push(i / 10);
+      return arr;
+    },
+  },
+];
+
+function getParams(
+  // customRanges = [{ label: '', range: () => {} }],
+  customRanges,
+  params,
+  options,
+  func,
+  quality,
+  nBests = 1
+) {
+  let sets = customRanges.map((e) => e.range());
+  const arrangements = cartesian(...sets);
+  let bestParams = { qval: 0 };
+  let candidate = [];
+  let qval = 0;
+
+  for (let arrangement of arrangements) {
+    for (let i in arrangement) {
+      options[customRanges[i].label] = arrangement[i];
+    }
+    candidate = func(params, options);
+    qval = quality(candidate);
+
+    // print on console just to follow along
+    // console.log(qval);
+
+    if (qval < bestParams.qval) {
+      for (let i in arrangement) {
+        bestParams[customRanges[i].label] = arrangement[i];
+      }
+      bestParams.qval = qval;
+    }
+  }
+  return bestParams;
+}
+
+const callback = (options) => {
+  return optmizedHillClimbing(options, boundedUniformConvolution(options), sphere(os, options));
+};
+
+const bestParams = getParams(ranges, options, callback, sphere(os, options));
+console.log(bestParams);

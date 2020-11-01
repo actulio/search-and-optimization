@@ -36,9 +36,7 @@ export function getRandomNumber(min, max, type = { isInt: true }) {
  */
 export function getErrorPercentArray(actual, expected) {
   if (actual.length !== expected.length) {
-    throw new Error(
-      `Different array lengths: ${actual.length} vs ${expected.length}.`
-    );
+    throw new Error(`Different array lengths: ${actual.length} vs ${expected.length}.`);
   }
   let error = [];
   for (let i in actual) {
@@ -108,9 +106,7 @@ export function getMean(arr) {
  */
 export function getStdDeviation(arr) {
   const meanVal = getMean(arr);
-  return Math.sqrt(
-    arr.reduce((acc, curr) => acc + Math.pow(curr - meanVal, 2), 0)
-  );
+  return Math.sqrt(arr.reduce((acc, curr) => acc + Math.pow(curr - meanVal, 2), 0));
 }
 
 /**
@@ -119,8 +115,24 @@ export function getStdDeviation(arr) {
 export function sumArrays(...arrays) {
   const n = arrays.reduce((max, xs) => Math.max(max, xs.length), 0);
   const result = Array.from({ length: n });
-  return result.map((_, i) =>
-    arrays.map((xs) => xs[i] || 0).reduce((sum, x) => sum + x, 0)
-  );
+  return result.map((_, i) => arrays.map((xs) => xs[i] || 0).reduce((sum, x) => sum + x, 0));
 }
 
+/**
+ * @param  {} num
+ * @param  {} places
+ */
+export function roundDecimal(num, places) {
+  if (!('' + num).includes('e')) {
+    // @ts-ignore
+    return +(Math.round(num + 'e+' + places) + 'e-' + places);
+  } else {
+    let arr = ('' + num).split('e');
+    let sig = '';
+    if (+arr[1] + places > 0) {
+      sig = '+';
+    }
+    // @ts-ignore
+    return +(Math.round(+arr[0] + 'e' + sig + (+arr[1] + places)) + 'e-' + places);
+  }
+}
