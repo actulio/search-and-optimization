@@ -1,7 +1,7 @@
 import { getRandomNumber } from '../utils/utils.js';
 
 /**
- * @callback
+ * @description Algorithm 8: Bounded Uniform Convolution
  * @param  {Object} params object containing parameter options
  * @param  {Number} params.r half-range of uniform noise
  * @param  {Number} params.p probability of adding noise to an element in the vector

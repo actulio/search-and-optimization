@@ -1,13 +1,8 @@
-import { getRandomArray, getRandomNumber } from '../utils/utils.js';
+import { getRandomArray } from '../utils/utils.js';
+import '../utils/typedefs.js';
 
 /**
- * @param  {Object} options object containing tweak options
- * @param  {Number} options.min minimum desired vector element value
- * @param  {Number} options.max maximum desired vector element value
- * @param  {Number} options.D number of dimensions of the entry vector
- * @param  {Number} options.iterations max number of iterations
- * @param  {TweakFunction} tweak
- * @param  {QualityFunction} quality
+ * @deprecated Use optmizedHillClimbing instead
  */
 function hillClimbing(options, tweak, quality) {
   let { min, max, D, iterations } = options;
@@ -24,13 +19,10 @@ function hillClimbing(options, tweak, quality) {
 }
 
 /**
- * @param  {Object} options object containing tweak options
- * @param  {Number} options.min minimum desired vector element value
- * @param  {Number} options.max maximum desired vector element value
- * @param  {Number} options.D number of dimensions of the entry vector
- * @param  {Number} options.iterations max number of iterations
- * @param  {TweakFunction} tweak
- * @param  {QualityFunction} quality
+ * @description Algorithm 4: Hill-Climbing
+ * @param  {Options} options object containing tweak options
+ * @param  {Function} tweak
+ * @param  {Function} quality
  */
 function optmizedHillClimbing(options, tweak, quality) {
   let { min, max, D, iterations } = options;

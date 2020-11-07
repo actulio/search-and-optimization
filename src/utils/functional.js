@@ -2,12 +2,6 @@
 // const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
 // https://qastack.com.br/programming/12303989/cartesian-product-of-multiple-arrays-in-javascript
 
-import { sphere } from '../benchmark/sphere.js';
-import { optimizedSimulatedAnnealing } from '../activity_2/simulated_annealing.js';
-import { optmizedHillClimbing } from '../activity_1/hill_climbing.js';
-import { boundedUniformConvolution } from '../tweak/tweaks.js';
-import { readFileAsArray } from '../utils/utils.js';
-
 function fn(a, b) {
   return [].concat(...a.map((d) => b.map((e) => [].concat(d, e))));
 }
@@ -38,8 +32,6 @@ export function getBestCombinations(
 ) {
   console.time('timer');
   console.timeLog('timer', 'Started creating combinations…');
-
-  const os1 = readFileAsArray('src/activity_1/tests/optimum.txt', '\n');
 
   let sets = customRanges.map((e) => e.range());
   const arrangements = cartesian(...sets);

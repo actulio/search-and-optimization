@@ -1,17 +1,8 @@
 import { getRandomArray, getRandomNumber } from '../utils/utils.js';
+import '../utils/typedefs.js';
 
 /**
- * @param  {Object} options object containing fixed options
- * @param  {Number} options.min minimum desired vector element value
- * @param  {Number} options.max maximum desired vector element value
- * @param  {Number} options.D number of dimensions of the entry vector
- * @param  {Number} options.iterations max number of iterations
- * @param  {Object} params object containing variable options
- * @param  {Number} params.p probability of choosing a new solution
- * @param  {Number} params.initialT initial value of temperature tunable parameter
- * @param  {CallableFunction} tweak
- * @param  {CallableFunction} quality
- * @param  {CallableFunction} decreaseTemperature
+ * @deprecated Use optimizedSimulatedAnnealing instead
  */
 export function simulatedAnnealing(params, options, tweak, quality, decreaseTemperature) {
   let { min, max, D, iterations } = options;
@@ -36,16 +27,13 @@ export function simulatedAnnealing(params, options, tweak, quality, decreaseTemp
 }
 
 /**
- * @param  {Object} options object containing fixed options
- * @param  {Number} options.min minimum desired vector element value
- * @param  {Number} options.max maximum desired vector element value
- * @param  {Number} options.D number of dimensions of the entry vector
- * @param  {Number} options.iterations max number of iterations
+ * @description Algorithm 13: Simulated Annealing
  * @param  {Object} params object containing variable options
  * @param  {Number} params.initialT initial value of temperature tunable parameter
- * @param  {CallableFunction} tweak
- * @param  {CallableFunction} quality
- * @param  {CallableFunction} decreaseTemperature
+ * @param  {Options} options object containing fixed options
+ * @param  {Function} tweak
+ * @param  {Function} quality
+ * @param  {Function} decreaseTemperature
  */
 export function optimizedSimulatedAnnealing(params, options, tweak, quality) {
   let { min, max, D, iterations } = options;

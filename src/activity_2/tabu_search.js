@@ -1,16 +1,8 @@
 import { getRandomArray, getRandomNumber } from '../utils/utils.js';
+import '../utils/typedefs.js';
 
 /**
- * @param  {Object} params object containing variable options
- * @param  {Number} params.l desired queue length
- * @param  {Number} params.n number of tweaks desired to sample the gradient
- * @param  {Object} options object containing fixed options
- * @param  {Number} options.min minimum desired vector element value
- * @param  {Number} options.max maximum desired vector element value
- * @param  {Number} options.D number of dimensions of the entry vector
- * @param  {Number} options.iterations max number of iterations
- * @param  {CallableFunction} tweak
- * @param  {CallableFunction} quality
+ * @deprecated Use optimizedFeaturedBasedTabuSearch instead
  */
 export function featuredBasedTabuSearch(params, options, tweak, quality) {
   let { min, max, D, iterations } = options;
@@ -56,16 +48,13 @@ export function featuredBasedTabuSearch(params, options, tweak, quality) {
 }
 
 /**
+ * @description Algorithm 4: Hill-Climbing
  * @param  {Object} params object containing variable options
  * @param  {Number} params.l desired queue length
  * @param  {Number} params.n number of tweaks desired to sample the gradient
- * @param  {Object} options object containing fixed options
- * @param  {Number} options.min minimum desired vector element value
- * @param  {Number} options.max maximum desired vector element value
- * @param  {Number} options.D number of dimensions of the entry vector
- * @param  {Number} options.iterations max number of iterations
- * @param  {CallableFunction} tweak
- * @param  {CallableFunction} quality
+ * @param  {Options} options object containing fixed options
+ * @param  {Function} tweak
+ * @param  {Function} quality
  */
 export function optimizedFeaturedBasedTabuSearch(params, options, tweak, quality) {
   let { min, max, D, iterations } = options;
@@ -84,7 +73,7 @@ export function optimizedFeaturedBasedTabuSearch(params, options, tweak, quality
 
   do {
     c = c + 1;
-    // remover de L
+    // remove from L
     if (L.length > l) {
       L.pop();
     }
