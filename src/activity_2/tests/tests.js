@@ -2,6 +2,7 @@ import { readFileAsArray } from '../../utils/utils.js';
 import { getBestCombinations } from '../../utils/functional.js';
 import { sphere } from '../../benchmark/sphere.js';
 import { rosenbrock } from '../../benchmark/rosenbrock.js';
+import { rastringin } from '../../benchmark/rastringin.js';
 import { boundedUniformConvolution, tabuTweak } from '../../tweak/tweaks.js';
 import { optimizedSimulatedAnnealing } from '../simulated_annealing.js';
 import { optimizedFeaturedBasedTabuSearch } from '../tabu_search.js';
@@ -9,13 +10,14 @@ import { optmizedHillClimbing } from '../../activity_1/hill_climbing.js';
 
 const os1 = readFileAsArray('src/activity_1/tests/optimum.txt', '\n');
 const os2 = readFileAsArray('src/activity_2/tests/optimum.txt', '\n');
+const os3 = readFileAsArray('src/activity_3/tests/optimum.txt', '\n');
 
 const ranges = [
   {
     label: 'r',
     range: () => {
       let arr = [];
-      for (let i = 1; i <= 10; i++) arr.push(i / 10);
+      for (let i = 1; i <= 30; i++) arr.push(i / 10);
       return arr;
     },
   },
@@ -23,45 +25,46 @@ const ranges = [
     label: 'p',
     range: () => {
       let arr = [];
-      for (let i = 1; i < 10; i++) arr.push(i / 10);
+      for (let i = 1; i <= 10; i++) arr.push(i / 10);
       return arr;
     },
   },
-  {
-    label: 'l',
-    range: () => [1, 2, 3],
-  },
-  {
-    label: 'n',
-    range: () => [1, 2, 3],
-  },
   // {
-  //   label: 'initialT',
-  //   range: () => {
-  //     let arr = [];
-  //     for (let i = 1; i <= 5; i++) arr.push(i * 10000);
-  //     return arr;
-  //     // return [10000, 20000, 30000];
-  //   },
+  //   label: 'l',
+  //   range: () => [1, 2, 3],
   // },
+  // {
+  //   label: 'n',
+  //   range: () => [1, 2, 3],
+  // },
+  {
+    label: 'initialT',
+    range: () => {
+      // let arr = [];
+      // for (let i = 1; i <= 5; i++) arr.push(i * 10000);
+      // return arr;
+      return [1000, 5000, 7000, 10000, 15000, 20000];
+    },
+  },
 ];
 
 const options = {
-  min: -100,
-  max: 100,
+  min: -5,
+  max: 5,
   D: 100,
   iterations: 50000,
   showProgress: false,
 };
 
 if (true) {
-  options.fbias = -450;
-  const callbackWithSphere = {
+  options.fbias = -330;
+  const callbackWithRastringin = {
     hillClimbing: (params, options) => {
       return optmizedHillClimbing(
+        params,
         options,
         boundedUniformConvolution(params, options),
-        sphere(os1, options)
+        rastringin(os3, options)
       );
     },
     simulatedAnnealing: (params, options) => {
@@ -69,7 +72,7 @@ if (true) {
         params,
         options,
         boundedUniformConvolution(params, options),
-        sphere(os1, options)
+        rastringin(os3, options)
       );
     },
     tabuSearch: (params, options) => {
@@ -85,8 +88,8 @@ if (true) {
     ranges,
     options,
     5,
-    callbackWithSphere.simulatedAnnealing,
-    sphere(os1, options)
+    callbackWithRastringin.simulatedAnnealing,
+    rastringin(os3, options)
   );
   console.log('Best combination of params: ', bestCombinations);
 
@@ -94,8 +97,8 @@ if (true) {
   const params = bestCombinations[bestCombinations.length - 1];
   console.log('Best overall param: ', params);
   for (let i = 0; i < 10; i++) {
-    const arr = callbackWithSphere.simulatedAnnealing(params, options);
-    quals.push(sphere(os1, options)(arr));
+    const arr = callbackWithRastringin.simulatedAnnealing(params, options);
+    quals.push(rastringin(os3, options)(arr));
   }
   console.log('Quality of chosen params: ', quals);
 } else {
