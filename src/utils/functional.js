@@ -80,7 +80,7 @@ export function getBestCombinations(
  * @param  {()=>{}}]} range
  * @param  {} options
  */
-export function getAllCombinations(customRanges = [{ label: '', range: () => {} }]) {
+export function getCartesian(customRanges = [{ label: '', range: () => {} }]) {
   let sets = customRanges.map((e) => e.range());
   const arrangements = cartesian(...sets);
   return arrangements;
