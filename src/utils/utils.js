@@ -79,7 +79,7 @@ export function meanAndStdDeviation(allArrs, dimensions) {
  */
 export function readFileAsArray(path, separator) {
   const file = fs.readFileSync(path, 'utf8');
-  const array = file.split(separator).map((e) => parseInt(e));
+  const array = file.split(separator).map((e) => parseFloat(e.replace(',', '.')));
   return array;
 }
 

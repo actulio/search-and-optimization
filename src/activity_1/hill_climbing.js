@@ -20,11 +20,12 @@ function hillClimbing(options, tweak, quality) {
 
 /**
  * @description Algorithm 4: Hill-Climbing
+ * @param  {Object} params Not used in this algorithm
  * @param  {Options} options object containing tweak options
  * @param  {Function} tweak
  * @param  {Function} quality
  */
-function optmizedHillClimbing(options, tweak, quality) {
+function optmizedHillClimbing(params, options, tweak, quality) {
   let { min, max, D, iterations } = options;
 
   let s = getRandomArray(min, max, D); // some initial candidate solution
