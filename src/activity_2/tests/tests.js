@@ -8,9 +8,9 @@ import { optimizedSimulatedAnnealing } from '../simulated_annealing.js';
 import { optimizedFeaturedBasedTabuSearch } from '../tabu_search.js';
 import { optmizedHillClimbing } from '../../activity_1/hill_climbing.js';
 
-const os1 = readFileAsArray('src/activity_1/tests/optimum.txt', '\n');
-const os2 = readFileAsArray('src/activity_2/tests/optimum.txt', '\n');
-const os3 = readFileAsArray('src/activity_3/tests/optimum.txt', '\n');
+const os1 = readFileAsArray('src/optimums/opt_sphere.txt', '\n');
+const os2 = readFileAsArray('src/optimums/opt_rosenbrock.txt', '\n');
+const os3 = readFileAsArray('src/optimums/opt_rastringin.txt', '\n');
 
 const ranges = [
   {
@@ -29,23 +29,23 @@ const ranges = [
       return arr;
     },
   },
-  // {
-  //   label: 'l',
-  //   range: () => [1, 2, 3],
-  // },
-  // {
-  //   label: 'n',
-  //   range: () => [1, 2, 3],
-  // },
   {
-    label: 'initialT',
-    range: () => {
-      // let arr = [];
-      // for (let i = 1; i <= 5; i++) arr.push(i * 10000);
-      // return arr;
-      return [1000, 5000, 7000, 10000, 15000, 20000];
-    },
+    label: 'l',
+    range: () => [1, 2, 4, 8],
   },
+  {
+    label: 'n',
+    range: () => [1, 2, 4, 8],
+  },
+  // {
+  //   label: 'initialT',
+  //   range: () => {
+  //     // let arr = [];
+  //     // for (let i = 1; i <= 5; i++) arr.push(i * 10000);
+  //     // return arr;
+  //     return [1000, 5000, 7000, 10000, 15000, 20000];
+  //   },
+  // },
 ];
 
 const options = {

@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
+# hillclimbing, simulated annealing, tabu, mi plus lambda, ga with elitism, pso
+
 sphere = [
   [-449.08, -448.84, -448.93, -448.81, -448.61, -448.74, -448.85, -448.65, -448.92, -448.69],
   [-448.32, -447.73, -447.36, -448.65, -448.15, -447.16, -448.42, -448.23, -448.45, -448.89],
@@ -22,17 +24,22 @@ rosenbrock = [
 
 rastringin = [
   [-327.51, -327.02, -326.12, -328.04, -326.95, -327.99, -327.5, -326.59, -327.11, -327.51],
-  [-327.61,-326.84,-325.25,-327.43,-327.29,-326.68,-328.35,-325.94,-328.13,-326.13],
-  [-328.51,-328.47,-328.62,-328.67,-327.46,-328.51,-327.47,-328.34,-328.25,-327.97],
-  [-113.89,-99.715,-127.23,-166.96,-130.43,-195.51,-177.75,-132.39,-174.43,-95.645]
+  [-327.61, -326.84, -325.25, -327.43, -327.29, -326.68, -328.35, -325.94, -328.13, -326.13],
+  # [-328.51, -328.47, -328.62, -328.67, -327.46, -328.51, -327.47, -328.34, -328.25, -327.97],
+  [-113.89, -99.715, -127.23, -166.96, -130.43, -195.51, -177.75, -132.39, -174.43, -95.645],
+  [1608.66, 1394.02, 1385.33, 1516.98, 1581.74, 1444.78, 1590.77, 1357.57, 1591.33, 1526.03],
 ]
+
+ackley = [
+  [-139.73, -139.78, -139.79, -139.79, -139.74, -139.68, -139.76, -139.74, -139.75, -139.77],
+  [-139.72, -139.65, -139.71, -139.65, -139.56, -139.45, -139.65, -139.77, -139.67, -139.7],
+  [-138.75, -138.95, -131.83, -126.88, -138.78, -138.76, -126.55, -120.44, -138.73, -138.75],
+  [-118.76, -118.79, -118.78, -118.85, -118.84, -118.95, -118.76, -118.95, -118.75, -119.1],
+]
+
 
 df = pd.DataFrame(rastringin).T
 df.to_excel(excel_writer = "C:/Users/Tulio/Desktop/Mestrado/Busca_e_Otimizacao/search_and_optmization/src/utils/test.xlsx")
-
-file = 'C:/Users/Tulio/Desktop/Mestrado/Busca_e_Otimizacao/search_and_optmization/src/utils/test2.xlsx'
-df = pd.read_excel(file, index_col=0)
-print(df.head()) # print the first 5 rows
 
 
 data = rastringin
@@ -47,8 +54,8 @@ print(stats.kruskal(*data))
 pc = sp.posthoc_conover(data)
 
 #Caso precise mudar os indices e colunas do DataFrame
-pc.columns = ['HC', 'SA', 'μ + λ', 'GA Elitism']
-pc.index = ['HC', 'SA', 'μ + λ', 'GA Elitism']
+pc.columns = ['HC', 'SA', 'GA Elitism', 'PSO']
+pc.index = ['HC', 'SA', 'GA Elitism', 'PSO']
 
 print(pc)
 

@@ -13,9 +13,9 @@ import fs from 'fs';
 
 import { readFileAsArray } from '../../utils/utils.js';
 
-const os1 = readFileAsArray('src/activity_1/tests/optimum.txt', '\n');
-const os2 = readFileAsArray('src/activity_2/tests/optimum.txt', '\n');
-const os3 = readFileAsArray('src/activity_3/tests/optimum.txt', '\n');
+const os1 = readFileAsArray('src/optimums/opt_sphere.txt', '\n');
+const os2 = readFileAsArray('src/optimums/opt_rosenbrock.txt', '\n');
+const os3 = readFileAsArray('src/optimums/opt_rastringin.txt', '\n');
 
 const options = {
   min: -5,
@@ -55,18 +55,18 @@ const ranges = [
   },
 ];
 
-for (let i = 0; i < 10; i++) {
-  let arr = optimizedSimulatedAnnealing(
-    // { popsize: 4, n: 2 },
+for (let i = 0; i < 0; i++) {
+  let arr = optimizedGaWithElitism(
+    { popsize: 4, n: 2 },
     // { mi: 1, lambda: 8 },
-    { r: 1.2, p: 0.01, initialT: 1000 },
+    // { r: 1.2, p: 0.1 },
     options,
-    boundedUniformConvolution({ r: 1, p: 0.01 }, options),
-    rastringin(os3, options)
-    // twoPointCrossover(options),
-    // tournamentSelection({ t: 2 })
+    boundedUniformConvolution({ r: 2, p: 0.1 }, options),
+    rastringin(os3, options),
+    twoPointCrossover(options),
+    tournamentSelection({ t: 2 })
   );
-  console.log(rastringin(os3, options)(arr), ',');
+  console.log(rastringin(os3, options)(arr.arr), ',');
 }
 // console.log(arr);
 // console.log('-------');
@@ -115,11 +115,4 @@ if (false) {
     quals.push(rastringin(os3, options)(arr));
   }
   console.log('Quality of chosen params: ', quals);
-}
-
-function formatName(createdAt, url) {
-  const date = new Date(createdAt);
-  return `${url
-    .split('/')
-    .pop()} from ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 }
