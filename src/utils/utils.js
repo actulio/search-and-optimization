@@ -6,7 +6,7 @@ import fs from 'fs';
  * @param  {Number} size
  * @param  {Object} type
  * @param  {Boolean} type.isInt Whether the generated random number is int or float
- * @returns {Number}
+ * @returns {Number[]}
  */
 export function getRandomArray(min, max, size, type = { isInt: true }) {
   const arr = Array.from(new Array(size), (_) => {

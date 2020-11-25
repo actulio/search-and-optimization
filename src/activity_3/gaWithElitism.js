@@ -61,6 +61,8 @@ export function optimizedGaWithElitism(
   const { popsize, n } = params;
   const { min, max, D, iterations } = options;
 
+  if ((popsize - n) % 2 !== 0) return Array(100).fill(max);
+
   let P = [];
   let Q = [];
   let counter = 0;
@@ -93,5 +95,5 @@ export function optimizedGaWithElitism(
     }
     P = [...Q];
   }
-  return best;
+  return best.arr;
 }
