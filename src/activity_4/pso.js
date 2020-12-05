@@ -15,7 +15,7 @@ export function pso(params, options, fitness) {
   const { min, max, D, iterations } = options;
 
   const fi = c1 + c2;
-  const chi = 2 / (2 - fi - Math.sqrt(Math.pow(fi, 2) - 4 * fi)); // The Constriction Factor X
+  const chi = 2 / Math.abs(2 - fi - Math.sqrt(Math.pow(fi, 2) - 4 * fi)); // The Constriction Factor X
 
   let P = [];
   let counter = 0;
@@ -24,21 +24,20 @@ export function pso(params, options, fitness) {
     // initialization procedure
     let pOft = getRandomArray(min, max, D, { isInt: false });
     let vOft = getRandomArray(0, 1, D, { isInt: false });
-    const fitvalue = fitness(pOft);
+    const fitValue = fitness(pOft);
     P.push({
       position: [...pOft],
       velocity: [...vOft],
-      fitness: fitvalue,
+      fitness: fitValue,
       personalBest: {
         position: [...pOft],
-        fitness: fitvalue,
+        fitness: fitValue,
       },
     });
   }
 
   let globalBest = {
     position: [...P[0].position],
-    velocity: [...P[0].velocity],
     fitness: fitness(P[0].position),
   };
 
@@ -56,26 +55,27 @@ export function pso(params, options, fitness) {
         // console.log(i, ': global best update');
         globalBest = {
           position: [...P[i].position],
-          velocity: [...P[i].velocity],
           fitness: P[i].fitness,
         };
       }
-    }
-    for (let i = 0; i < swarmsize; i++) {
-      for (let idx = 0; idx < D; idx++) {
-        const xid = P[i].position[idx];
+      for (let d = 0; d < D; d++) {
         const fi1 = getRandomNumber(0, 1, { isInt: false });
         const fi2 = getRandomNumber(0, 1, { isInt: false });
 
-        const pid = P[i].personalBest.position[idx];
-        const vid = P[i].velocity[idx];
-        const gid = globalBest.position[idx];
+        const gid = globalBest.position[d];
+        const xid = P[i].position[d];
+        const pid = P[i].personalBest.position[d];
+        const vid = P[i].velocity[d];
 
-        const vidNext = chi * (vid + c1 * fi1 * (pid - xid) + c2 * fi2 * (gid - xid));
-        const xidNext = xid + vidNext;
+        let vidNext = chi * (vid + c1 * fi1 * (pid - xid) + c2 * fi2 * (gid - xid));
+        if (vidNext > 0.5 || vidNext < -0.5) vidNext = 0.5 * Math.sign(vidNext);
+        let xidNext = xid + vidNext;
 
-        P[i].position[idx] = xidNext;
-        P[i].velocity[idx] = vidNext;
+        if (xidNext > max) xidNext = max;
+        else if (xidNext < min) xidNext = min;
+
+        P[i].position[d] = xidNext;
+        P[i].velocity[d] = vidNext;
       }
     }
   } while (counter < iterations);

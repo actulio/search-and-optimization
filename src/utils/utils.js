@@ -88,7 +88,7 @@ export function readFileAsArray(path, separator) {
  * @param  {} path
  */
 export function writeObjToFile(obj, path) {
-  fs.writeFile(path, JSON.stringify(obj), (error) => {
+  fs.writeFile(path, obj, (error) => {
     if (error) throw error;
     console.log('Wrote to file at ' + path);
   });

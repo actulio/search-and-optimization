@@ -25,7 +25,7 @@ function hillClimbing(options, tweak, quality) {
  * @param  {Function} tweak
  * @param  {Function} quality
  */
-function optmizedHillClimbing(params, options, tweak, quality) {
+function optimizedHillClimbing(params, options, tweak, quality) {
   let { min, max, D, iterations } = options;
 
   let s = getRandomArray(min, max, D); // some initial candidate solution
@@ -55,4 +55,4 @@ function optmizedHillClimbing(params, options, tweak, quality) {
   return s;
 }
 
-export { hillClimbing, optmizedHillClimbing };
+export { hillClimbing, optimizedHillClimbing };
