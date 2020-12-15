@@ -21,7 +21,7 @@ export function boundedUniformConvolution(params, options) {
       if (p >= getRandomNumber(0, 1, { isInt: false })) {
         do {
           n = getRandomNumber(-r, r, { isInt: false });
-        } while (v[i] + n < min && v[i] + n > max);
+        } while (v[i] + n < min || v[i] + n > max);
         v[i] += n;
       }
     }

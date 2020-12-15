@@ -1,4 +1,12 @@
 import fs from 'fs';
+import v8 from 'v8';
+
+/**
+ * @param  {} obj
+ */
+export function clone(obj) {
+  return v8.deserialize(v8.serialize(obj));
+}
 
 /**
  * @param  {Number} min
@@ -47,33 +55,6 @@ export function getErrorPercentArray(actual, expected) {
 }
 
 /**
- * @param  {} allArrs
- * @param  {} dimensions
- */
-export function meanAndStdDeviation(allArrs, dimensions) {
-  let nArrs = allArrs.length;
-  let meanArr = [];
-  let stdDeviationArr = [];
-  let sum = 0;
-  for (let i = 0; i < dimensions; i += 1) {
-    sum = 0;
-    for (let j = 0; j < nArrs; j += 1) {
-      sum += allArrs[j][i];
-    }
-    meanArr[i] = sum / nArrs;
-    let variance = 0; // without the denominator part
-    for (let j = 0; j < nArrs; j += 1) {
-      variance += Math.pow(allArrs[j][i] - meanArr[i], 2);
-    }
-    stdDeviationArr[i] = Math.sqrt(variance / dimensions);
-  }
-  return {
-    meanArr,
-    stdDeviationArr,
-  };
-}
-
-/**
  * @param  {string} path Path pointing to the file.
  * @param  {string} separator Separator used to differ each number
  */
@@ -88,7 +69,7 @@ export function readFileAsArray(path, separator) {
  * @param  {} path
  */
 export function writeObjToFile(obj, path) {
-  fs.writeFile(path, obj, (error) => {
+  fs.writeFile(path, JSON.stringify(obj), (error) => {
     if (error) throw error;
     console.log('Wrote to file at ' + path);
   });
