@@ -9,5 +9,9 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     }
-  }
+  },
+  "cSpell.words": [
+    "NSGA",
+    "fbias"
+  ]
 }

@@ -1,7 +1,7 @@
 import { getBestCombinations } from '../../utils/functional.js';
 import { rastringin } from '../../benchmark/rastringin.js';
 import { readFileAsArray } from '../../utils/utils.js';
-import { optmizedHillClimbing } from '../../activity_1/hill_climbing.js';
+import { optimizedHillClimbing } from '../../activity_1/hill_climbing.js';
 import { optimizedSimulatedAnnealing } from '../../activity_2/simulated_annealing.js';
 import { optimizedGaWithElitism } from '../../activity_3/gaWithElitism.js';
 import { tournamentSelection } from '../../activity_3/tournamentSelection.js';
@@ -19,7 +19,7 @@ const options = {
   showProgress: false,
   fbias: -330,
   repeatStat: 10,
-  bestsLenght: 5,
+  bestsLength: 5,
 };
 
 const ranges = [
@@ -29,6 +29,7 @@ const ranges = [
       let arr = [];
       for (let i = 1; i <= 50; i++) arr.push(i);
       return arr;
+      // return [31];
     },
   },
   {
@@ -84,7 +85,7 @@ const fn = 'pso';
 
 const callbackfn = {
   hillClimbing: (params, options) => {
-    return optmizedHillClimbing(
+    return optimizedHillClimbing(
       params,
       options,
       boundedUniformConvolution(params, options),
@@ -117,7 +118,7 @@ const callbackfn = {
 const bestCombinations = getBestCombinations(
   ranges,
   options,
-  options.bestsLenght,
+  options.bestsLength,
   callbackfn[fn],
   fitness(os, options)
 );
