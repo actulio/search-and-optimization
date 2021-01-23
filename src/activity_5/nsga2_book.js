@@ -208,7 +208,6 @@ export function breed(P, crossover, mutate) {
       fitness: null,
       sparsity: null,
     });
-    // count++;
     if (count >= P.length) break;
     Q.push({
       id: count++,
@@ -216,7 +215,6 @@ export function breed(P, crossover, mutate) {
       fitness: null,
       sparsity: null,
     });
-    // count++;
     if (count >= P.length) break;
   }
   P = [...Q];
