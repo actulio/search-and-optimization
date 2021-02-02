@@ -76,8 +76,8 @@ export function getBestCombinations(
 }
 
 /**
- * @param  {Object} customRanges=[{label
- * @param  {()=>{}}]} range
+ * @param  {Object} customRanges
+ * @param  {()=>{}} range
  * @param  {} options
  */
 export function getCartesian(customRanges = [{ label: '', range: () => {} }]) {
