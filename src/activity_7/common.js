@@ -124,6 +124,15 @@ function twoOptSwap() {
   };
 }
 
+function hasRepeated(tour) {
+  let counter = new Array(tour).fill(0);
+  for (let i of counter) {
+    counter[i]++;
+    if (counter[i] > 1) return true;
+  }
+  return false;
+}
+
 export {
   calcDistanceMatrix,
   getTourCost,
@@ -131,4 +140,5 @@ export {
   readPoints,
   create2dMatrix,
   twoOptSwap,
+  hasRepeated,
 };
