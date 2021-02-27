@@ -26,4 +26,4 @@ To run it, do:
 node NAME_OF_THE_FILE.js
 ```
 
-Or hit `ctrl + alt + r` if you use vscode. A task runner is configured in [tasks.json](/src/.vscode/tasks.json) and the key binding in [keybindings.json](/src/.vscode/keybindings.json).
+Or hit `ctrl + alt + r` if you use vscode. A task runner is configured in [tasks.json](/.vscode/tasks.json) and the key binding in [keybindings.json](/.vscode/keybindings.json).
